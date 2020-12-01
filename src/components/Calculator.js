@@ -4,26 +4,20 @@ class Calculator extends Component {
     
     state = {
         num1: '',
-        num2: ''
+        num2: '',
+        sum: ''
     }
 
-    // newValue1 = (e) => {
-    //     this.setState({
-    //         value1: e.target.value
-    //     })
-    //     console.log(e.target.value)
-    // }
-    
-    // newValue2 = (e) => {
-    //     this.setState({
-    //         value2: e.target.value
-    //     })
-    //     console.log(e.target.value)
-    // }
 
     setNum = (e, num) => {
         this.setState({ [num]: e.target.value});
-        console.log(e.target.value)
+      }
+
+      addValues = (e) => {
+        e.preventDefault()
+        this.setState({
+            sum: parseInt(this.state.num1) + parseInt(this.state.num2)
+        })
       }
     
     render(){
@@ -45,8 +39,9 @@ class Calculator extends Component {
                     onChange={ (e) => this.setNum(e, 'num2') }
                     />
                     
-                    <button>=</button>
+                    <button onClick={this.addValues}>=</button>
                     <h3>Addition results go here!</h3>
+                    <p>{this.state.sum}</p>
                 </div>
             </div>
         )
