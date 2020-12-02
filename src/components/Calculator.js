@@ -5,7 +5,8 @@ class Calculator extends Component {
     state = {
         num1: '',
         num2: '',
-        sum: ''
+        result: '',
+        operator: '+'
     }
 
 
@@ -15,9 +16,27 @@ class Calculator extends Component {
 
       addValues = (e) => {
         e.preventDefault()
-        this.setState({
-            sum: parseInt(this.state.num1) + parseInt(this.state.num2)
-        })
+        switch (this.state.operator) {
+            default:
+            this.setState({
+                result: parseInt(this.state.num1) + parseInt(this.state.num2)
+            })
+            break;
+            case '-':
+            this.setState({
+                result: parseInt(this.state.num1) - parseInt(this.state.num2)
+            })
+            break;
+            case '*':
+            this.setState({
+                result: parseInt(this.state.num1) * parseInt(this.state.num2)
+            })
+            break;
+            case '/':
+            this.setState({
+                result: parseInt(this.state.num1) / parseInt(this.state.num2)
+            })
+        }
       }
     
     render(){
@@ -31,7 +50,15 @@ class Calculator extends Component {
                     value={this.state.num1}
                     onChange={ (e) => this.setNum(e, 'num1') }
                     />
-                    <span>+</span>
+                    <select name="operator"
+                    value={this.state.operator}
+                    onChange={  (e) => this.setNum(e, 'operator') }
+                    >
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                        <option value="/">/</option>
+                    </select>
                     <input type="number"
                     name="num2"
                     placeholder="Enter your second number"
@@ -40,8 +67,7 @@ class Calculator extends Component {
                     />
                     
                     <button onClick={this.addValues}>=</button>
-                    <h3>Addition results go here!</h3>
-                    <p>{this.state.sum}</p>
+                    <h3>Results: {this.state.result}</h3>
                 </div>
             </div>
         )
